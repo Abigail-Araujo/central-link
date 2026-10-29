@@ -1,0 +1,16 @@
+version: '3.8'
+
+services:
+  asterisk:
+    build: .                          # Indica a Docker que compile el Dockerfile que está aquí mismo
+    container_name: mi_pbx            # El nombre del contenedor mi_pbx
+    network_mode: "host"
+    volumes:
+      - ./configuraciones:/etc/asterisk                     # Inyectar los archivos personalizados
+    restart: unless-stopped           # Reinicia el contenedor automáticamente si falla
+    logging:
+          driver: "json-file"
+          options:
+            max-size: "10m"
+            max-file: "3"
+
